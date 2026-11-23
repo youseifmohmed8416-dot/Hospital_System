@@ -1,0 +1,82 @@
+#include<iostream>
+#include<vector>
+#include<string>
+
+using namespace std;
+
+class Patient {
+public:
+    string name;
+    int age;
+    string doctor;
+
+    Patient(string n, int a) {
+        name = n;
+        age = a;
+        doctor = "None";
+    }
+};
+
+int main() {
+    vector<Patient> patients;
+    int choice;
+
+    while (true) {
+        cout << "\n=== Hospital System (draft) ===" << endl;
+        cout << "1. Add Patient" << endl;
+        cout << "2. Assign Doctor" << endl;
+        cout << "3. Search Patient" << endl;
+        cout << "4. Display All Patients" << endl;
+        cout << "5. Exit" << endl;
+        cout << "Choose an option: ";
+        cin >> choice;
+
+        if (choice == 1) {
+            string n;
+            int a;
+            cout << "Enter patient name: ";
+            cin >> n;
+            cout << "Enter age: ";
+            cin >> a;
+            patients.push_back(Patient(n, a));
+            cout << "Patient \"" << n << "\" added." << endl;
+        } 
+        else if (choice == 2) {
+            string n, d;
+            cout << "Enter patient name: ";
+            cin >> n;
+            cout << "Enter doctor name: ";
+            cin.ignore();
+            getline(cin, d);
+            for (int i = 0; i < patients.size(); i++) {
+                if (patients[i].name == n) {
+                    patients[i].doctor = d;
+                    cout << n << " assigned to " << d << "." << endl;
+                    break;
+                }
+            }
+        } 
+        else if (choice == 3) {
+            string n;
+            cout << "Enter patient name: ";
+            cin >> n;
+            for (int i = 0; i < patients.size(); i++) {
+                if (patients[i].name == n) {
+                    cout << "Found: " << patients[i].name << " | Age: " << patients[i].age << " | Doctor: " << patients[i].doctor << endl;
+                    break;
+                }
+            }
+        } 
+        else if (choice == 4) {
+            for (int i = 0; i < patients.size(); i++) {
+                cout << "Patient: " << patients[i].name << " | Age: " << patients[i].age << " | Doctor: " << patients[i].doctor << endl;
+            }
+        } 
+        else if (choice == 5) {
+            cout << "Goodbye!" << endl;
+            break;
+        }
+    }
+
+    return 0;
+}
